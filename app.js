@@ -12,9 +12,17 @@
  const $checkbox = $('#checkbox');
  let activitiesArray = [];
  let totalCost;
- const $activities =$('#activities');
+ const $activities = $('#activities');
+ const $submitButton = $('form button');
  const $total = $('#total');
  const $error = $('#errorMessage');
+ const $payment = $('#payment');
+ const $bitcoin = $('fieldset:last div:last');
+ const $paypal = $('fieldset:last div:last').prev();
+ const $jobSelect = $('#title option');
+ const $ccNum = $('#cc-num');
+ const $zip = $('#zip');
+ const $cvv = $('#cvv');
 
 //selecting the "name" element and calling focus to it//
 $( document ).ready(function() {
@@ -55,6 +63,10 @@ $("#color option").hide();
       $("#color").val("tomato");
     } else { 
         $("#colors-js-puns").hide();
+    }
+    if($("#design").val()==="Select Theme"){
+      $(".shirt legend").append("<span style='color: red; font-weight:bold'> (Don't forget to pick a T-shirt)</span>");
+      status = false;
     }
 });
 
@@ -132,6 +144,12 @@ $("#payment").change(function() {
     $("p:contains('Paypal')").hide();
     $("p:contains('Bitcoin')").hide();
   }
+  //validate payment if credit card is selected//
+  if ($("#payment").val() == "credit card") {
+    validate($("#cc-num")[0]);
+    validate($("#zip")[0]);
+    validate($("#cvv")[0]);
+  }
 });
 
 $("#register").click( (e) => {
@@ -142,19 +160,21 @@ $("#register").click( (e) => {
   //validating all required fields
   validate($("#name")[0]);
   validate($("#mail")[0]);
-  //validate($(".activities")[0]);
-
-  //validate payment if credit card is selected//
-  if ($("#payment").val() == "credit card") {
-    validate($("#cc-num")[0]);
-    validate($("#zip")[0]);
-    validate($("#cvv")[0]);
-  }
+  if($("#name").val()==''){
+    $("label[for='name']").attr("style","color:red; font-weight:bold");
+    $("label[for='name']").append("<span>(Please Add Name!)</span>");
+    staus = false; 
+  }  
+  if($("#mail").val()==''|| $("#mail").val().indexOf("@")<1|| $("#mail").val.lastIndexOf(".")<$("#mail").val().indexOf("@")+2|| $("#mail").val().lastIndexOf(".")+2>=($("#mail").val().length)){
+    $("label[for='mail']").attr("style","color:red; font-weight:bold");
+    $("label[for='mail']").append("<span>(Please Add a valid email!)</span>");
+    staus = false; 
+  } 
 
   //if no errors exists, as in no error-classes found => submit
   if ($(".error").length == 0){
     $("form").submit();
-  } //else => errors will display, and form will not submit
+  } 
 });
   
   function handleError (errorTarget, errorMessage) {
@@ -164,18 +184,59 @@ $("#register").click( (e) => {
   } else { 
          text = $("label[for='" + errorTarget.id + "']");
     }
-  
-  $(text).find("span").remove(); 
-  
-  if (errorMessage != "") { 
-    text.html(text.html() + 
-      "<span class='message'>\u2718 " + errorMessage + "</span>");
-    $(errorTarget).addClass("error"); 
-  } else { 
-     //display a checkmark//
-      text.html(text.html() +
-        "<span class='message'>\u2714 " + "</span>");
-      $(errorTarget).removeClass("error"); 
-    }
-  }
+   }
   });
+
+//Name Validation for registration submission//
+// $submitButton.on('click', function (event) {
+
+// function  $nameValid () {
+//   if ($name.val() === "") {
+//     $('#blankName').show();
+//     $name.addClass('error');
+//     return true; 
+//   } else {
+//     $('#blankName').hide();
+//     $name.removeClass('error');
+//     return false;
+//   }
+// }
+
+$("form").submit(function(){
+  $('label span').remove();
+  $('legend span').remove();
+  $('label span').removeAttr("style");
+  $('label').removeAttr("style");
+  let status = true;
+
+//activities section
+if(checkboxStatus($(".activities :checked"))==false){
+  $(".activities legend").append("<span style='color: red; font-weight:bold'> (please select an Activity)</span>");
+  status = false;
+}
+
+//payment section
+if($("#payment").val()==="credit card"){
+  if($("#cc-num").val()==""|| $("#cc-num").val().length<13|| $("#cc-num").val().length>16|| isNaN($("#cc-num").val())==true){
+      $("label[for='cc-num']").attr("style","color:red; font-weight:bold");
+      status = false;
+     }
+  if($("#zip").val()==""|| $("#zip").val().length !=5|| isNaN($("#zip").val())==true){
+      $("label[for='zip']").attr("style","color:red; font-weight:bold");
+      status = false;
+     }
+  if($("#cvv").val()==""|| $("#cvv").val().length !=3|| isNaN($("#cvv").val())==true){
+      $("label[for='cvv']").attr("style","color:red; font-weight:bold");
+      status = false;
+     }
+}
+
+  return status;
+});
+if($("#design").val()==="Select Theme"){
+  $(".shirt legend").append("<span style='color: red; font-weight:bold'> (Don't forget to pick a T-shirt)</span>");
+  status = false;
+}
+
+
+
