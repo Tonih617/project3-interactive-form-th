@@ -155,13 +155,11 @@ $("#payment").change(function() {
     return $(selector).attr('data-msg');
 }
 
-$('#form1').validate({
-    // ...
+$('#form').validate({
     messages: {
         firstName: getMsg('#firstName'),
         lastName: getMsg('#lastName')
     }
-    // ...
 });
 
 
@@ -170,13 +168,13 @@ $('#form1').validate({
 
 
   //validating all required fields
-  // validate($("#name")[0]);
-  // if($("#name").val()==''){
-  //   $("label[for='name']").attr("style","color:red; font-weight:bold");
-  //   $("label[for='name']").append("<span>(Please Add Name!)</span>");
-  //   staus = false; 
-    
-  // } 
+  validate($("#name")[0]);
+  if($("#name").val()==''){
+    $("label[for='name']").attr("style","color:red; font-weight:bold");
+    $("label[for='name']").append("<span>(Please Add Name!)</span>");
+    staus = false; 
+  } 
+
   validate($("#mail")[0]); 
   if($("#mail").val()==''|| $("#mail").val().indexOf("@")<1|| $("#mail").val.lastIndexOf(".")<$("#mail").val().indexOf("@")+2|| $("#mail").val().lastIndexOf(".")+2>=($("#mail").val().length)){
     $("label[for='mail']").attr("style","color:red; font-weight:bold");

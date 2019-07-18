@@ -39,22 +39,26 @@
     <form action="index.html" method="post">
               
       <fieldset>         
-        <legend>Basic Info</legend>
+        <legend>Basic Info<span class="error">(*Required Fields*)</span></legend>
         
         <div>
-          <span class="error">*First and Last name is required*</span>
-          <label for="contact_name">First Name:</label>
+          <label for="contact_name">First Name:
+              <span class="error">*</span>
+          </label>
           <input type="text" id="firstName" name="firstName" 
         data-msg="Please enter your first name" />
            <br>
-          <label for="contact_name">Last Name:</label>
+          <label for="contact_name">Last Name:
+              <span class="error">*</span>
+          </label>
           <input type="text" id="lastName" name="lastName" 
         data-msg="Please enter your last name" />
         </div>
         <!-- Email -->
         <div>
-          <span class="error">*A valid email address is required*</span>
-          <label for="contact_email">Email:</label>
+          <label for="contact_email">Email:
+            <span class="error">*</span>
+          </label>
           <input type="email" id="contact_email" name="email"></input>			
         </div>						
         
@@ -118,7 +122,9 @@
       <fieldset>
         <legend>Payment Info</legend>
 
-        <label for="payment">Please Select Payment Method:</label>
+        <label for="payment">Please Select Payment Method:
+            <span class="error">*</span>
+        </label>
         <select id="payment" name="user_payment">
           <option value="credit card">Credit Card</option>
           <option value="paypal">PayPal</option>
@@ -127,22 +133,29 @@
 
         <div id="credit-card" class="credit-card">
           <div class="col-6 col">
-            <label for="cc-num">Card Number:</label>
+            <label for="cc-num">Card Number:
+                <span class="error">*</span>
+            </label>
             <input id="cc-num" name="user_cc-num" type="text">
-            <span class ="error">*Please provide a valid card number*</span>
           </div>
 
           <div class="col-3 col">
-            <label for="zip">Zip Code:</label>
+            <label for="zip">Zip Code:
+                <span class="error">*</span>
+            </label>
             <input id="zip" name="user_zip" type="text"> 
           </div>
 
           <div class="col-3 col">
-            <label for="cvv">CVV:</label>
+            <label for="cvv">CVV:
+                <span class="error">*</span>
+            </label>
             <input id="cvv" name="user_cvv" type="text"> 
           </div>
 
-          <label for="exp-month">Expiration Date:</label>
+          <label for="exp-month">Expiration Date:
+              <span class="error">*</span>
+          </label>
           <select id="exp-month" name="user_exp-month">
             <option value="1">1 - January</option>
             <option value="2">2 - February</option>
@@ -157,7 +170,9 @@
             <option value="11">11 - November</option>	
             <option value="12">12 - December</option>          		          
           </select>
-          <label for="exp-year">Expiration Year:</label>
+          <label for="exp-year">Expiration Year:
+              <span class="error">*</span>
+          </label>
           <select id="exp-year" name="user_exp-year">
             <option value="2016">2016</option>
             <option value="2017">2017</option>
