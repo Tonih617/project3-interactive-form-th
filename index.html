@@ -5,7 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Register for Full Stack Conf</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .error{
+      color: red;
+    }
+    label,
+    input,
+    button {
+      border: 0;
+      margin-bottom: 3px;
+      display: block;
+      width: 100%;
+    }
+   .common_box_body {
+      padding: 15px;
+      border: 12px solid #28BAA2;
+      border-color: #28BAA2;
+      border-radius: 15px;
+      margin-top: 10px;
+      background: #d4edda;
+  }
+  </style>
 </head>
 <body>
 	<div class="container">
@@ -20,11 +41,17 @@
       <fieldset>         
         <legend>Basic Info</legend>
         
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="user_name">
-        
-        <label for="mail">Email:</label>
-        <input type="email" id="mail" name="user_email">
+        <div>
+          <label for="contact_name">Name:</label>
+          <input type="text" id="contact_name" name="name"></input>
+          <span class="error">*This field is required*</span>
+        </div>
+        <!-- Email -->
+        <div>
+          <label for="contact_email">Email:</label>
+          <input type="email" id="contact_email" name="email"></input>
+          <span class="error">*A valid email address is required*</span>				
+        </div>						
         
         <label for="title">Job Role</label>
         <select id="title" name="user_title">
@@ -94,10 +121,10 @@
         </select>
 
         <div id="credit-card" class="credit-card">
-
           <div class="col-6 col">
             <label for="cc-num">Card Number:</label>
-        	  <input id="cc-num" name="user_cc-num" type="text">
+            <input id="cc-num" name="user_cc-num" type="text">
+            <span class ="error">*Please provide a valid card number*</span>
           </div>
 
           <div class="col-3 col">
@@ -154,6 +181,7 @@
   src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

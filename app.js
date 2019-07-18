@@ -144,15 +144,9 @@ $("#payment").change(function() {
     $("p:contains('Paypal')").hide();
     $("p:contains('Bitcoin')").hide();
   }
-  //validate payment if credit card is selected//
-  if ($("#payment").val() == "credit card") {
-    validate($("#cc-num")[0]);
-    validate($("#zip")[0]);
-    validate($("#cvv")[0]);
-  }
 });
 
-$("#register").click( (e) => {
+//$("#register").click( (e) => {
   e.preventDefault(); //dont submit before validation
 
   $(".error").removeClass("error"); //remove all errors before re-validation
@@ -185,29 +179,25 @@ $("#register").click( (e) => {
          text = $("label[for='" + errorTarget.id + "']");
     }
    }
-  });
 
-//Name Validation for registration submission//
-// $submitButton.on('click', function (event) {
+function isValidForm() {
+  let status = true;
+  //Name Section//
+  if($name.val()==""){
+    alert("Name empty");
+    status = false; 
+  }
 
-// function  $nameValid () {
-//   if ($name.val() === "") {
-//     $('#blankName').show();
-//     $name.addClass('error');
-//     return true; 
-//   } else {
-//     $('#blankName').hide();
-//     $name.removeClass('error');
-//     return false;
-//   }
-// }
+  //return status;
+}
 
-$("form").submit(function(){
+$("form").submit(function(e){
   $('label span').remove();
   $('legend span').remove();
   $('label span').removeAttr("style");
   $('label').removeAttr("style");
   let status = true;
+
 
 //activities section
 if(checkboxStatus($(".activities :checked"))==false){
@@ -231,12 +221,15 @@ if($("#payment").val()==="credit card"){
      }
 }
 
-  return status;
-});
+if(isValidForm() == false){
+   event.preventDefault();
+}
+//   return status;
+ });
 if($("#design").val()==="Select Theme"){
   $(".shirt legend").append("<span style='color: red; font-weight:bold'> (Don't forget to pick a T-shirt)</span>");
   status = false;
 }
-
+ 
 
 
