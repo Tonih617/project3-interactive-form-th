@@ -146,7 +146,7 @@ $("#payment").change(function() {
   }
 });
 
-//$("#register").click( (e) => {
+$("#register").click( (e) => {
   e.preventDefault(); //dont submit before validation
 
   $(".error").removeClass("error"); //remove all errors before re-validation
@@ -172,14 +172,14 @@ $('#form').validate({
   if($("#name").val()==''){
     $("label[for='name']").attr("style","color:red; font-weight:bold");
     $("label[for='name']").append("<span>(Please Add Name!)</span>");
-    staus = false; 
+    status = false; 
   } 
 
   validate($("#mail")[0]); 
   if($("#mail").val()==''|| $("#mail").val().indexOf("@")<1|| $("#mail").val.lastIndexOf(".")<$("#mail").val().indexOf("@")+2|| $("#mail").val().lastIndexOf(".")+2>=($("#mail").val().length)){
     $("label[for='mail']").attr("style","color:red; font-weight:bold");
     $("label[for='mail']").append("<span>(Please Add a valid email!)</span>");
-    staus = false; 
+    status = false; 
   } 
 
   //if no errors exists, as in no error-classes found => submit
@@ -197,8 +197,8 @@ $('#form').validate({
     }
    }
 
-function isValidForm() {
-  let status = true;
+// function isValidForm() {
+//   let status = true;
   //Name Section//
   if($name.val()==""){
     alert("Name empty");
@@ -206,7 +206,7 @@ function isValidForm() {
   }
 
   //return status;
-}
+
 
 $("form").submit(function(e){
   $('label span').remove();
@@ -238,15 +238,36 @@ if($("#payment").val()==="credit card"){
      }
 }
 
-if(isValidForm() == false){
-   event.preventDefault();
-}
+// if(isValidForm() == false){
+//    event.preventDefault();
+// }
 //   return status;
- });
+ //});
 if($("#design").val()==="Select Theme"){
   $(".shirt legend").append("<span style='color: red; font-weight:bold'> (Don't forget to pick a T-shirt)</span>");
   status = false;
 }
  
 
+$(function(){
+  $("#myform").validate();    
+  $("#myform").on('submit', function(e) {
+      var isvalid = $("#myform").valid();
+      if (isvalid) {
+          e.preventDefault();
+          alert(getvalues("myform"));
+      }
+  });
+});
 
+function getvalues(f)
+{
+  var form=$("#"+f);
+  var str='';
+  $("input:not('input:submit')", form).each(function(i){
+      str+='\n'+$(this).prop('name')+': '+$(this).val();
+  });
+  return str;
+}
+});
+});
