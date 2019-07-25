@@ -23,7 +23,9 @@
  const $ccNum = $('#cc-num');
  const $zip = $('#zip');
  const $cvv = $('#cvv');
-
+ const $messageFirstName = $('Please enter your first name.');
+ const $messageLastName = $('Please enter your last name.');
+ 
 //selecting the "name" element and calling focus to it//
 $( document ).ready(function() {
   $( "name" ).focus();
@@ -162,11 +164,6 @@ $('#form').validate({
     }
 });
 
-
-
-
-
-
   //validating all required fields
   validate($("#name")[0]);
   if($("#name").val()==''){
@@ -182,7 +179,7 @@ $('#form').validate({
     status = false; 
   } 
 
-  //if no errors exists, as in no error-classes found => submit
+  //if no errors exists, as in no error-classes found,submit
   if ($(".error").length == 0){
     $("form").submit();
   } 
@@ -197,13 +194,14 @@ $('#form').validate({
     }
    }
 
-// function isValidForm() {
-//   let status = true;
+//  function isValidForm() {
+//    let status = true;
+
   //Name Section//
-  if($name.val()==""){
-    alert("Name empty");
-    status = false; 
-  }
+  // if($name.val()==""){
+  //   alert("Name empty");
+  //   status = false; 
+  // }
 
   //return status;
 
@@ -238,9 +236,9 @@ if($("#payment").val()==="credit card"){
      }
 }
 
-// if(isValidForm() == false){
-//    event.preventDefault();
-// }
+ if(isValidForm() == false){
+    event.preventDefault();
+ }
 //   return status;
  //});
 if($("#design").val()==="Select Theme"){
@@ -269,5 +267,8 @@ function getvalues(f)
   });
   return str;
 }
+ });
 });
-});
+ 
+
+
