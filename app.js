@@ -121,31 +121,26 @@ function totalPrice(total) {
   }
 }
 
-
-
 //Create function that will take care of hiding/showing the right payment options depending on the user selection
-//$("#payment").change(function() {
+$("#payment").change(function() {
   if ($(this).val() === "paypal") {
     $("#credit-card").hide();
     $("p:contains('Bitcoin')").hide();
     $("p:contains('Paypal')").show();
   }
   //When "Bitcoin" is selected, display Bitcoin and hide CC and paypal
-  else ($(this).val() === "bitcoin"); {
+  if($(this).val() === "bitcoin") {
     $("#credit-card").hide();
     $("p:contains('Paypal')").hide();
     $("p:contains('Bitcoin')").show();
-  } 
-$("#credit-card").show();
-$("#bitcoin-mess").hide();
-$("#paypal-mess").hide();
+  }
 
   //When CC is selected, display the credit card information and hide the paypal and bitcoin info..
-  // if ($(this).val() === "credit card") {
-  //   $("#credit-card").show();
-  //   $("p:contains('Paypal')").hide();
-  //   $("p:contains('Bitcoin')").hide();
-  // }
+  if ($(this).val() === "credit card") {
+    $("#credit-card").show();
+    $("p:contains('Paypal')").hide();
+    $("p:contains('Bitcoin')").hide();
+  }
 });
 
 $("#register").click( (e) => {
@@ -268,7 +263,7 @@ function getvalues(f)
   return str;
 }
  });
-
+});
  
 
 
