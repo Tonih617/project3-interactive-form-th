@@ -23,9 +23,9 @@
  const $ccNum = $('#cc-num');
  const $zip = $('#zip');
  const $cvv = $('#cvv');
- const $messageFirstName = $('Please enter your first name.');
- const $messageLastName = $('Please enter your last name.');
- 
+ const $messageFirstName = 'Please enter your first name.';
+ const $messageLastName = 'Please enter your last name.';
+
 //selecting the "name" element and calling focus to it//
 $( document ).ready(function() {
   $( "name" ).focus();
@@ -121,31 +121,31 @@ function totalPrice(total) {
   }
 }
 
+
+
 //Create function that will take care of hiding/showing the right payment options depending on the user selection
-$("#payment").change(function() {
-    if ($(this).val() === "select_method") {
-      $("#credit-card").hide();
-      $("p:contains('Bitcoin')").hide();
-      $("'p:contains('Paypal')").hide();
-    }
-  //When "PayPal" is selected, display the Paypal and hide CC and bitcoin info
+//$("#payment").change(function() {
   if ($(this).val() === "paypal") {
     $("#credit-card").hide();
     $("p:contains('Bitcoin')").hide();
     $("p:contains('Paypal')").show();
   }
   //When "Bitcoin" is selected, display Bitcoin and hide CC and paypal
-  if ($(this).val() === "bitcoin") {
+  else ($(this).val() === "bitcoin"); {
     $("#credit-card").hide();
     $("p:contains('Paypal')").hide();
     $("p:contains('Bitcoin')").show();
-  }
+  } 
+$("#credit-card").show();
+$("#bitcoin-mess").hide();
+$("#paypal-mess").hide();
+
   //When CC is selected, display the credit card information and hide the paypal and bitcoin info..
-  if ($(this).val() === "credit card") {
-    $("#credit-card").show();
-    $("p:contains('Paypal')").hide();
-    $("p:contains('Bitcoin')").hide();
-  }
+  // if ($(this).val() === "credit card") {
+  //   $("#credit-card").show();
+  //   $("p:contains('Paypal')").hide();
+  //   $("p:contains('Bitcoin')").hide();
+  // }
 });
 
 $("#register").click( (e) => {
@@ -268,7 +268,7 @@ function getvalues(f)
   return str;
 }
  });
-});
+
  
 
 
