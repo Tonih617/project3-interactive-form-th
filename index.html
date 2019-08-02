@@ -39,27 +39,27 @@
     <form action="index.html" method="post">
               
       <fieldset>         
-        <legend>Basic Info<span class="error">(*Required Fields*)</span></legend>
-        
-        <div>
-          <label for="contact_name">First Name:
-              <span class="error">*</span>
-          </label>
-          <input type="text" id="firstName" name="firstName" 
-             data-msg="Please enter your first name" />
-           <br>
-          <label for="contact_name">Last Name:
-              <span class="error">*</span>
-          </label>
-          <input type="text" id="lastName" name="lastName" 
-             data-msg="Please enter your last name" />
+        <legend>Basic Info<span class="error">(*Required Fields*)</span>
+        </legend>
+        <div class="first_container">Full Name
+            <span class="error">*</span>
         </div>
+
+        <div id="nameBlock">
+           <input type="text" name="fname" placeholder="First" id="cust_fname"/>
+           <input type="text" name="lname" placeholder="Last"  id="cust_lname"/>
+    
+        <div id="name_error_msg"> 
+        <span id="spanUsernameRequired" style="visibility: hidden; font-weight:bold; color: Red;"></span>
+        <span id="spanLastnameRequired" style="visibility: hidden; font-weight:bold; color: Red;"></span>
+     </div>
+
         <!-- Email -->
         <div>
           <label for="contact_email">Email:
             <span class="error">*</span>
-          </label>
-          <input type="email" id="contact_email" name="email"></input>			
+            <input type='text' name="ename" id='txtEmail' placeholder='Valid Email Address'/>
+          </label>			
         </div>						
         
         <label for="title">Job Role</label>
@@ -123,65 +123,45 @@
         <legend>Payment Info</legend>
 
         <label for="payment">Please Select Payment Method:
-            <span class="error">*</span>
         </label>
         <select id="payment" name="user_payment">
           <option value="credit card">Credit Card</option>
           <option value="paypal">PayPal</option>
           <option value="bitcoin">Bitcoin</option>
         </select>
-
-        <div id="credit-card" class="credit-card">
-          <div class="col-6 col">
-            <label for="cc-num">Card Number:
-                <span class="error">*</span>
-            </label>
-            <input id="cc-num" name="user_cc-num" type="text">
-          </div>
-
-          <div class="col-3 col">
-            <label for="zip">Zip Code:
-                <span class="error">*</span>
-            </label>
-            <input id="zip" name="user_zip" type="text"> 
-          </div>
-
-          <div class="col-3 col">
-            <label for="cvv">CVV:
-                <span class="error">*</span>
-            </label>
-            <input id="cvv" name="user_cvv" type="text"> 
-          </div>
-
-          <label for="exp-month">Expiration Date:
-              <span class="error">*</span>
-          </label>
-          <select id="exp-month" name="user_exp-month">
-            <option value="1">1 - January</option>
-            <option value="2">2 - February</option>
-            <option value="3">3 - March</option>
-            <option value="4">4 - April</option>
-            <option value="5">5 - May</option>
-            <option value="6">6 - June</option>
-            <option value="7">7 - July</option>
-            <option value="8">8 - August</option>
-            <option value="9">9 - September</option>
-            <option value="10">10 - October</option>
-            <option value="11">11 - November</option>	
-            <option value="12">12 - December</option>          		          
-          </select>
-          <label for="exp-year">Expiration Year:
-              <span class="error">*</span>
-          </label>
-          <select id="exp-year" name="user_exp-year">
-            <option value="2016">2016</option>
-            <option value="2017">2017</option>
-            <option value="2018">2018</option>
-            <option value="2019">2019</option>
-            <option value="2020">2020</option>        		          
-          </select> 	                  	         
-        </div>
-
+        <form method="post" id="paymentForm">
+            <p>
+                <label>Card number
+                    <span class="error">*</span>
+                </label>
+                
+                <input type="text" placeholder="1234 5678 9012 3456" id="card_number" >
+            </p>
+            <p>
+                <label>Expiry month
+                    <span class="error">*</span>
+                </label>
+                <input type="text" placeholder="MM" maxlength="5" id="expiry_month">
+            </p>
+            <p>
+                <label>Expiry year
+                    <span class="error">*</span>
+                </label>
+                <input type="text" placeholder="YYYY" maxlength="5" id="expiry_year">
+            </p>
+            <p>
+                <label>CVV
+                    <span class="error">*</span>
+                </label>
+                <input type="text" placeholder="123" maxlength="3" id="cvv">
+            </p>
+            <p>
+                <label>Name on card
+                    <span class="error">*</span>
+                </label>
+                <input type="text" placeholder="Please add full name on card" id="name_on_card">
+            </p>
+        </form>
         <div>
         	<p id="paypal-mess">If you selected the PayPal option we'll take you to Paypal's site to set up your billing information, when you click “Register” below.</p>
         </div> 
@@ -191,19 +171,18 @@
         </div>                  
 
       </fieldset>        
-        
-      <button type="submit">Register</button>
-      
-    </form>
-
-  </div>
-  <script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
+        <button type="submit">Register</button>
+      </form>
+        </div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
   crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
   <script src="app.js"></script>
-  <script src ="js/jquery.creditCardValidator.js"></script>
-</body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="creditCardValidator.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script type="text/javascript" src="js/emailvalidation.js"></script>
+  </body>
 </html>
 

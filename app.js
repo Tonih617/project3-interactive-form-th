@@ -1,9 +1,3 @@
-
-
-
-
-
-
 //selecting and storing my varibles//
  const $name =$('#name');
  const $colorDiv=$('#colors-js-puns');
@@ -11,7 +5,6 @@
  const $button = $('#button');
  const $design = $('#design');
  const $placeholder_option = $('#placeholder');
- const $validate = $('#validation');
  const $registration = $('#activities');
  const $totalCost = $('#cost');
  const $checkboxActivities = $('#checkbox');
@@ -32,10 +25,29 @@
  const $submit = $('#submit');
  const $messageFirstName = 'Please enter your first name.';
  const $messageLastName = 'Please enter your last name.';
- 
+ const $validate = $('#validate');
+ const $validateEmail =$('#validate-email');
+
+
 //selecting the "name" element and calling focus to it//
 $( document ).ready(function() {
   $( "name" ).focus();
+    var cust_fname = $('#cust_fname').val();
+    var cust_lname = $('#cust_lname').val();
+    var name_regex = /^[A-Za-z]+$/;
+
+      $("input").blur(function(){
+          if(cust_fname.length==0){
+              $(name_error_msg).text("First name can't be empty");
+              $(this).css("border-color", "red");
+              return false;}
+
+      $("input").focus(function(){
+       $(name_error_msg).text("");
+          if(cust_fname.length > 0) { 
+               $(":focus").$(name_error_msg).html().css("border-color", "green"); }
+      });
+    })
 
 //*JOB-ROLE SECTION*//
 
@@ -150,6 +162,76 @@ $("#payment").change(function() {
   }
 });
 
+function cardFormValidate(){
+    var cardValid = 0;
+
+    //card number validation
+    $('#card_number').validateCreditCard(function(result){
+        if(result.valid){
+            $("#card_number").removeClass('required');
+            cardValid = 1;
+        }else{
+            $("#card_number").addClass('required');
+            cardValid = 0;
+        }
+    });
+      
+    //card details validation
+    var cardName = $("#name_on_card").val();
+    var expMonth = $("#expiry_month").val();
+    var expYear = $("#expiry_year").val();
+    var cvv = $("#cvv").val();
+    var regName = /^[a-z ,.'-]+$/i;
+    var regMonth = /^01|02|03|04|05|06|07|08|09|10|11|12$/;
+    var regYear = /^2017|2018|2019|2020|2021|2022|2023|2024|2025|2026|2027|2028|2029|2030|2031$/;
+    var regCVV = /^[0-9]{3,3}$/;
+    if (cardValid == 0) {
+        $("#card_number").addClass('required');
+        $("#card_number").focus();
+        return false;
+    }else if (!regMonth.test(expMonth)) {
+        $("#card_number").removeClass('required');
+        $("#expiry_month").addClass('required');
+        $("#expiry_month").focus();
+        return false;
+    }else if (!regYear.test(expYear)) {
+        $("#card_number").removeClass('required');
+        $("#expiry_month").removeClass('required');
+        $("#expiry_year").addClass('required');
+        $("#expiry_year").focus();
+        return false;
+    }else if (!regCVV.test(cvv)) {
+        $("#card_number").removeClass('required');
+        $("#expiry_month").removeClass('required');
+        $("#expiry_year").removeClass('required');
+        $("#cvv").addClass('required');
+        $("#cvv").focus();
+        return false;
+    }else if (!regName.test(cardName)) {
+        $("#card_number").removeClass('required');
+        $("#expiry_month").removeClass('required');
+        $("#expiry_year").removeClass('required');
+        $("#cvv").removeClass('required');
+        $("#name_on_card").addClass('required');
+        $("#name_on_card").focus();
+        return false;
+    }else{
+        $("#card_number").removeClass('required');
+        $("#expiry_month").removeClass('required');
+        $("#expiry_year").removeClass('required');
+        $("#cvv").removeClass('required');
+        $("#name_on_card").removeClass('required');
+        return true;
+    }
+}
+$(document).ready(function() {
+    //card validation on input fields
+    $('#paymentForm input[type=text]').on('keyup',function(){
+        cardFormValidate();
+    });
+});
+
+
 
 
  $("#submit").click( (e) => {
@@ -168,108 +250,134 @@ $('#form').validate({
     }
 });
 
-  //validating all required fields
-  validate($("#name")[0]);
-  if($("#name").val()==''){
-    $("label[for='contact_name']").attr("style","color:red; font-weight:bold");
-    $("label[for='contact_name']").append("<span>(Please Add Name!)</span>");
-    status = false; 
-  } 
+  var sEmail = $('#txtEmail').val();
+  // Checking Empty Fields
+  if ($.trim(sEmail).length == 0 || $("#fname").val()=="" || $("#lname").val()=="") {
+  alert('All fields are mandatory');
+  e.preventDefault();
+  }
+  if (validateEmail(sEmail)) {
+  alert('Nice!! your Email is valid, now you can continue..');
+  }
+  else {
+  alert('Invalid Email Address');
+  e.preventDefault();
+  }
+  });
+  });
+  // Function that validates email address through a regular expression.
+  function validateEmail(sEmail) {
+  var filter = /^[w-.+]+@[a-zA-Z0-9.-]+.[a-zA-z0-9]{2,4}$/;
+  if (filter.test(sEmail)) {
+  return true;
+  }
+  else {
+  return false;
+  }
+  }
+ 
+//   //validating all required fields
+//   validate($("#name")[0]);
+//   if($("#name").val()==''){
+//     $("label[for='contact_name']").attr("style","color:red; font-weight:bold");
+//     $("label[for='contact_name']").append("<span>(Please Add Name!)</span>");
+//     status = false; 
+//   } 
 
-  validate($("#mail")[0]); 
-  if($("#mail").val()==''|| $("#mail").val().indexOf("@")<1|| $("#mail").val.lastIndexOf(".")<$("#mail").val().indexOf("@")+2|| $("#mail").val().lastIndexOf(".")+2>=($("#mail").val().length)){
-    $("label[for='mail']").attr("style","color:red; font-weight:bold");
-    $("label[for='mail']").append("<span>(Please Add a valid email!)</span>");
-    status = false; 
-  } 
+//   validate($("#mail")[0]); 
+//   if($("#mail").val()==''|| $("#mail").val().indexOf("@")<1|| $("#mail").val.lastIndexOf(".")<$("#mail").val().indexOf("@")+2|| $("#mail").val().lastIndexOf(".")+2>=($("#mail").val().length)){
+//     $("label[for='mail']").attr("style","color:red; font-weight:bold");
+//     $("label[for='mail']").append("<span>(Please Add a valid email!)</span>");
+//     status = false; 
+//   } 
 
-  //if no errors exists, as in no error-classes found,submit
-  if ($(".error").length == 0){
-    $("form").submit();
-  } 
-});
+//   //if no errors exists, as in no error-classes found,submit
+//   if ($(".error").length == 0){
+//     $("form").submit();
+//   } 
+// });
   
-  function handleError (errorTarget, errorMessage) {
+//   function handleError (errorTarget, errorMessage) {
   
-  if ($(errorTarget).hasClass("activities")) { 
-    text = $("#activities-legend");
-  } else { 
-         text = $("label[for='" + errorTarget.id + "']");
-    }
-   }
+//   if ($(errorTarget).hasClass("activities")) { 
+//     text = $("#activities-legend");
+//   } else { 
+//          text = $("label[for='" + errorTarget.id + "']");
+//     }
+//    }
 
-//  function isValidForm() {
-//    let status = true;
+// //  function isValidForm() {
+// //    let status = true;
 
-  //Name Section//
-  // if($name.val()==""){
-  //   alert("Name empty");
-  //   status = false; 
-  // }
+//   //Name Section//
+//   // if($name.val()==""){
+//   //   alert("Name empty");
+//   //   status = false; 
+//   // }
 
-  //return status;
-
-
-$("form").submit(function(e){
-  $('label span').remove();
-  $('legend span').remove();
-  $('label span').removeAttr("style");
-  $('label').removeAttr("style");
-  let status = true;
+//   //return status;
 
 
-//activities section
-if(checkboxStatus($(".activities :checked"))==false){
-  $(".activities legend").append("<span style='color: red; font-weight:bold'> (please select an Activity)</span>");
-  status = false;
-}
+// $("form").submit(function(e){
+//   $('label span').remove();
+//   $('legend span').remove();
+//   $('label span').removeAttr("style");
+//   $('label').removeAttr("style");
+//   let status = true;
 
-//payment section
-if($("#payment").val()==="credit card"){
-  if($("#cc-num").val()==""|| $("#cc-num").val().length<13|| $("#cc-num").val().length>16|| isNaN($("#cc-num").val())==true){
-      $("label[for='cc-num']").attr("style","color:red; font-weight:bold");
-      status = false;
-     }
-  if($("#zip").val()==""|| $("#zip").val().length !=5|| isNaN($("#zip").val())==true){
-      $("label[for='zip']").attr("style","color:red; font-weight:bold");
-      status = false;
-     }
-  if($("#cvv").val()==""|| $("#cvv").val().length !=3|| isNaN($("#cvv").val())==true){
-      $("label[for='cvv']").attr("style","color:red; font-weight:bold");
-      status = false;
-     }
-}
 
- if(isValidForm() == false){
-    event.preventDefault();
- }
-//   return status;
- //});
-if($("#design").val()==="Select Theme"){
-  $(".shirt legend").append("<span style='color: red; font-weight:bold'> (Don't forget to pick a T-shirt)</span>");
-  status = false;
-}
+// //activities section
+// if(checkboxStatus($(".activities :checked"))==false){
+//   $(".activities legend").append("<span style='color: red; font-weight:bold'> (please select an Activity)</span>");
+//   status = false;
+// }
+
+// //payment section
+// if($("#payment").val()==="credit card"){
+//   if($("#cc-num").val()==""|| $("#cc-num").val().length<13|| $("#cc-num").val().length>16|| isNaN($("#cc-num").val())==true){
+//       $("label[for='cc-num']").attr("style","color:red; font-weight:bold");
+//       status = false;
+//      }
+//   if($("#zip").val()==""|| $("#zip").val().length !=5|| isNaN($("#zip").val())==true){
+//       $("label[for='zip']").attr("style","color:red; font-weight:bold");
+//       status = false;
+//      }
+//   if($("#cvv").val()==""|| $("#cvv").val().length !=3|| isNaN($("#cvv").val())==true){
+//       $("label[for='cvv']").attr("style","color:red; font-weight:bold");
+//       status = false;
+//      }
+     
+// }
+
+//  if(isValidForm() == false){
+//     event.preventDefault();
+//  }
+// //   return status;
+//  });
+// if($("#design").val()==="Select Theme"){
+//   $(".shirt legend").append("<span style='color: red; font-weight:bold'> (Don't forget to pick a T-shirt)</span>");
+//   status = false;
+// }
  
 
-$(function(){
-  $("#myform").validate();    
-  $("#myform").on('submit', function(e) {
-      var isvalid = $("#myform").valid();
-      if (isvalid) {
-          e.preventDefault();
-          alert(getvalues("myform"));
-      }
-  });
-});
+// $(function(){
+//   $("#myform").validate();    
+//   $("#myform").on('submit', function(e) {
+//       var isvalid = $("#myform").valid();
+//       if (isvalid) {
+//           e.preventDefault();
+//           alert(getvalues("myform"));
+//       }
+//   });
+// });
 
-function getvalues(f)
-{
-  var form=$("#"+f);
-  var str='';
-  $("input:not('input:submit')", form).each(function(i){
-      str+='\n'+$(this).prop('name')+': '+$(this).val();
-  });
-  return str;
-}
- });
-});
+// function getvalues(f)
+// {
+//   var form=$("#"+f);
+//   var str='';
+//   $("input:not('input:submit')", form).each(function(i){
+//       str+='\n'+$(this).prop('name')+': '+$(this).val();
+//   });
+//   return str;
+// }
+ 
