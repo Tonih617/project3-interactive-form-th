@@ -1,3 +1,9 @@
+
+
+
+
+
+
 //selecting and storing my varibles//
  const $name =$('#name');
  const $colorDiv=$('#colors-js-puns');
@@ -6,7 +12,7 @@
  const $design = $('#design');
  const $placeholder_option = $('#placeholder');
  const $validate = $('#validation');
- const $registration =$('#activities');
+ const $registration = $('#activities');
  const $totalCost = $('#cost');
  const $checkboxActivities = $('#checkbox');
  const $checkbox = $('#checkbox');
@@ -15,7 +21,7 @@
  const $activities = $('#activities');
  const $submitButton = $('form button');
  const $total = $('#total');
- const $error = $('#errorMessage');
+ const $errorMessage = $('#error');
  const $payment = $('#payment');
  const $bitcoin = $('fieldset:last div:last');
  const $paypal = $('fieldset:last div:last').prev();
@@ -23,9 +29,10 @@
  const $ccNum = $('#cc-num');
  const $zip = $('#zip');
  const $cvv = $('#cvv');
+ const $submit = $('#submit');
  const $messageFirstName = 'Please enter your first name.';
  const $messageLastName = 'Please enter your last name.';
-
+ 
 //selecting the "name" element and calling focus to it//
 $( document ).ready(function() {
   $( "name" ).focus();
@@ -143,27 +150,29 @@ $("#payment").change(function() {
   }
 });
 
-$("#register").click( (e) => {
-  e.preventDefault(); //dont submit before validation
 
-  $(".error").removeClass("error"); //remove all errors before re-validation
+
+ $("#submit").click( (e) => {
+   e.preventDefault(); //dont submit before validation
+
+   $(".error").removeClass("error"); //remove all errors before re-validation
 
   function getMsg(selector) {
     return $(selector).attr('data-msg');
 }
 
 $('#form').validate({
-    messages: {
-        firstName: getMsg('#firstName'),
-        lastName: getMsg('#lastName')
+    $messages: {
+        $firstName: getMsg('#firstName'),
+        $lastName: getMsg('#lastName')
     }
 });
 
   //validating all required fields
   validate($("#name")[0]);
   if($("#name").val()==''){
-    $("label[for='name']").attr("style","color:red; font-weight:bold");
-    $("label[for='name']").append("<span>(Please Add Name!)</span>");
+    $("label[for='contact_name']").attr("style","color:red; font-weight:bold");
+    $("label[for='contact_name']").append("<span>(Please Add Name!)</span>");
     status = false; 
   } 
 
@@ -264,6 +273,3 @@ function getvalues(f)
 }
  });
 });
- 
-
-
