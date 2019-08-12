@@ -10,179 +10,180 @@
     .error{
       color: red;
     }
-    label,
-    input,
-    button {
-      border: 0;
-      margin-bottom: 3px;
-      display: block;
-      width: 100%;
-    }
-   .common_box_body {
-      padding: 15px;
-      border: 12px solid #28BAA2;
-      border-color: #28BAA2;
-      border-radius: 15px;
-      margin-top: 10px;
-      background: #d4edda;
-  }
-  </style>
-</head>
-<body>
-	<div class="container">
-    
-    <header>
-      <span>Register for</span>
-      <h1>Full Stack Conf</h1>
-    </header>
-
-    <form action="index.html" method="post">
-              
-      <fieldset>         
-        <legend>Basic Info<span class="error">(*Required Fields*)</span>
-        </legend>
-        <div class="first_container">Full Name
-            <span class="error">*</span>
-        </div>
-
-        <div id="nameBlock">
-           <input type="text" name="fname" placeholder="First" id="cust_fname"/>
-           <input type="text" name="lname" placeholder="Last"  id="cust_lname"/>
-    
-        <div id="name_error_msg"> 
-        <span id="spanUsernameRequired" style="visibility: hidden; font-weight:bold; color: Red;"></span>
-        <span id="spanLastnameRequired" style="visibility: hidden; font-weight:bold; color: Red;"></span>
-     </div>
-
-        <!-- Email -->
-        <div>
-          <label for="contact_email">Email:
-            <span class="error">*</span>
-            <input type='text' name="ename" id='txtEmail' placeholder='Valid Email Address'/>
-          </label>			
-        </div>						
-        
-        <label for="title">Job Role</label>
-        <select id="title" name="user_title">
-          <option value="full-stack js developer">Full Stack JavaScript Developer</option>
-          <option value="front-end developer">Front End Developer</option>
-          <option value="back-end developer">Back End Developer</option>
-          <option value="designer">Designer</option>          
-          <option value="student">Student</option>
-          <option value="other">Other</option>  
-        </select>   
-        <input type="text" id="other-title" placeholder="Your Job Role" name="user_other_title">         
-      </fieldset>
+    </style>
+  </head>
+  <body>
+    <div class="container">
       
-      <fieldset class="shirt">
-        <legend>T-Shirt Info</legend>
-        
-        <div>
-          <label for="size">Size:</label>
-          <select id="size" name="user_size">
-            <option value="small">S</option>
-            <option value="medium" selected>M</option>
-            <option value="large">L</option>
-            <option value="extra large">XL</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="design">Design:</label>
-          <select id="design" name="user_design">
-            <option>Select Theme</option>
-            <option value="js puns">Theme - JS Puns</option>
-            <option value="heart js">Theme - I &#9829; JS</option>
-          </select>
-        </div>
-
-        <div id="colors-js-puns" class="">
-          <label for="color">Color:</label>
-          <select id="color">
-            <option value="cornflowerblue">Cornflower Blue (JS Puns shirt only)</option>
-            <option value="darkslategrey">Dark Slate Grey (JS Puns shirt only)</option> 
-            <option value="gold">Gold (JS Puns shirt only)</option> 
-            <option value="tomato">Tomato (I &#9829; JS shirt only)</option>
-            <option value="steelblue">Steel Blue (I &#9829; JS shirt only)</option> 
-            <option value="dimgrey">Dim Grey (I &#9829; JS shirt only)</option> 
-          </select>
-        </div>                
-      </fieldset>
-
-      <fieldset class="activities">
-        <legend>Please Register for Activities</legend>
-        <label><input type="checkbox" name="all"> Main Conference — $200</label>
-        <label><input type="checkbox" name="js-frameworks"> JavaScript Frameworks Workshop — Tuesday 9am-12pm, $100</label>
-        <label><input type="checkbox" name="js-libs"> JavaScript Libraries Workshop — Tuesday 1pm-4pm, $100</label>
-        <label><input type="checkbox" name="express"> Express Workshop — Tuesday 9am-12pm, $100</label>
-        <label><input type="checkbox" name="node"> Node.js Workshop — Tuesday 1pm-4pm, $100</label>          
-        <label><input type="checkbox" name="build-tools"> Build tools Workshop — Wednesday 9am-12pm, $100</label>
-        <label><input type="checkbox" name="npm"> npm Workshop — Wednesday 1pm-4pm, $100</label>         	
-      </fieldset>
-      <fieldset>
-        <legend>Payment Info</legend>
-
-        <label for="payment">Please Select Payment Method:
-        </label>
-        <select id="payment" name="user_payment">
-          <option value="credit card">Credit Card</option>
-          <option value="paypal">PayPal</option>
-          <option value="bitcoin">Bitcoin</option>
-        </select>
-        <form method="post" id="paymentForm">
-            <p>
-                <label>Card number
-                    <span class="error">*</span>
-                </label>
+      <header>
+        <span>Register for</span>
+        <h1>Full Stack Conf</h1>
+      </header>
+  
+      <form action="index.html" method="post">
                 
-                <input type="text" placeholder="1234 5678 9012 3456" id="card_number" >
-            </p>
-            <p>
-                <label>Expiry month
-                    <span class="error">*</span>
-                </label>
-                <input type="text" placeholder="MM" maxlength="5" id="expiry_month">
-            </p>
-            <p>
-                <label>Expiry year
-                    <span class="error">*</span>
-                </label>
-                <input type="text" placeholder="YYYY" maxlength="5" id="expiry_year">
-            </p>
-            <p>
-                <label>CVV
-                    <span class="error">*</span>
-                </label>
-                <input type="text" placeholder="123" maxlength="3" id="cvv">
-            </p>
-            <p>
-                <label>Name on card
-                    <span class="error">*</span>
-                </label>
-                <input type="text" placeholder="Please add full name on card" id="name_on_card">
-            </p>
-        </form>
-        <div>
-        	<p id="paypal-mess">If you selected the PayPal option we'll take you to Paypal's site to set up your billing information, when you click “Register” below.</p>
-        </div> 
+        <fieldset>         
+          <legend>Basic Info<span class="error">(*Required Fields*)</span></legend>
+          
+          <label for="firstName">First Name:
+              <span class="error">*</span>
+          </label>
+          <input type="text" id="firstName" name="user_firstName">
 
-        <div>
-        	<p id="bitcoin-mess">If you selected the Bitcoin option we'll take you to the Coinbase site to set up your billing information. Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
-        </div>                  
-
-      </fieldset>        
+          <label for="lastName">Last Name:
+              <span class="error">*</span>
+          </label>
+          <input type="text" id="lastName" name="user_lastName">
+          
+          <label for="mail">Email:
+              <span class="error">*</span>
+          </label>
+          <input type="email" id="mail" name="user_email">
+          
+          <label for="title">Job Role</label>
+          <select id="title" name="user_title">
+            <option value="full-stack js developer">Full Stack JavaScript Developer</option>
+            <option value="front-end developer">Front End Developer</option>
+            <option value="back-end developer">Back End Developer</option>
+            <option value="designer">Designer</option>          
+            <option value="student">Student</option>
+            <option value="other">Other</option>  
+          </select>  
+          <input type="text" name="textField" id="other-title" placeholder="Your Job Role">
+        </fieldset>
+        
+        <fieldset class="shirt">
+          <legend>T-Shirt Info</legend>
+          
+          <div>
+            <label for="size">Size:</label>
+            <select id="size" name="user_size">
+              <option value="small">S</option>
+              <option value="medium" selected>M</option>
+              <option value="large">L</option>
+              <option value="extra large">XL</option>
+            </select>
+          </div>
+  
+          <div>
+            <label for="design">Design:</label>
+            <select id="design" name="user_design">
+              <option>Select Theme</option>
+              <option value="js puns">Theme - JS Puns</option>
+              <option value="heart js">Theme - I &#9829; JS</option>
+            </select>
+          </div>
+  
+          <div id="colors-js-puns" class="">
+            <label for="color">Color:</label>
+            <select id="color">
+              <option>Select Color</option>
+              <option value="cornflowerblue">Cornflower Blue (JS Puns shirt only)</option>
+              <option value="darkslategrey">Dark Slate Grey (JS Puns shirt only)</option> 
+              <option value="gold">Gold (JS Puns shirt only)</option> 
+              <option value="tomato">Tomato (I &#9829; JS shirt only)</option>
+              <option value="steelblue">Steel Blue (I &#9829; JS shirt only)</option> 
+              <option value="dimgrey">Dim Grey (I &#9829; JS shirt only)</option> 
+            </select>
+          </div>                
+        </fieldset>
+  
+        <fieldset class="activities">
+          <legend>Register for Activities</legend>
+          <label><input type="checkbox" name="all"> Main Conference — $200</label>
+          <label><input type="checkbox" name="js-frameworks"> JavaScript Frameworks Workshop — Tuesday 9am-12pm, $100</label>
+          <label><input type="checkbox" name="js-libs"> JavaScript Libraries Workshop — Tuesday 1pm-4pm, $100</label>
+          <label><input type="checkbox" name="express"> Express Workshop — Tuesday 9am-12pm, $100</label>
+          <label><input type="checkbox" name="node"> Node.js Workshop — Tuesday 1pm-4pm, $100</label>          
+          <label><input type="checkbox" name="build-tools"> Build tools Workshop — Wednesday 9am-12pm, $100</label>
+          <label><input type="checkbox" name="npm"> npm Workshop — Wednesday 1pm-4pm, $100</label>
+          <p id='a'></p>
+         
+        </fieldset>
+        <fieldset>
+          <legend>Payment Info
+              <span class="error">*</span>
+          </legend>
+  
+          <label for="payment">I'm going to pay with:</label>
+          <select id="payment" name="user_payment">
+            <option value="select_method">Select Payment Method</option>
+            <option value="credit card">Credit Card</option>
+            <option value="paypal">PayPal</option>
+            <option value="bitcoin">Bitcoin</option>
+          </select>
+  
+          <div id="credit-card" class="credit-card">
+  
+            <div class="col-6 col">
+              <label for="cc-num">Card Number:
+                  <span class="error">*</span>
+              </label>
+              <input id="cc-num" name="user_cc-num" type="text">
+            </div>
+  
+            <div class="col-3 col">
+              <label for="zip">Zip Code:
+                  <span class="error">*</span>
+              </label>
+              <input id="zip" name="user_zip" type="text"> 
+            </div>
+  
+            <div class="col-3 col">
+              <label for="cvv">CVV:
+                  <span class="error">*</span>
+              </label>
+              <input id="cvv" name="user_cvv" type="text"> 
+            </div>
+  
+            <label for="exp-month">Expiration Date:
+                <span class="error">*</span>
+            </label>
+            <select id="exp-month" name="user_exp-month">
+              <option value="1">1 - January</option>
+              <option value="2">2 - February</option>
+              <option value="3">3 - March</option>
+              <option value="4">4 - April</option>
+              <option value="5">5 - May</option>
+              <option value="6">6 - June</option>
+              <option value="7">7 - July</option>
+              <option value="8">8 - August</option>
+              <option value="9">9 - September</option>
+              <option value="10">10 - October</option>
+              <option value="11">11 - November</option>	
+              <option value="12">12 - December</option>          		          
+            </select>
+            <label for="exp-year">Expiration Year:
+                <span class="error">*</span>
+            </label>
+            <select id="exp-year" name="user_exp-year">
+              <option value="2016">2016</option>
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>        		          
+            </select> 	                  	         
+          </div>
+  
+          <div id="paypal">
+            <p>If you selected the PayPal option we'll take you to Paypal's site to set up your billing information, when you click “Register” below.</p>
+          </div> 
+  
+          <div id="bitcoin">
+            <p>If you selected the Bitcoin option we'll take you to the Coinbase site to set up your billing information. Due to the nature of exchanging Bitcoin, all Bitcoin transactions will be final.</p>
+          </div>                  
+  
+        </fieldset>        
+          
         <button type="submit">Register</button>
+        
       </form>
-        </div>
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
-  <script src="app.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="creditCardValidator.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script type="text/javascript" src="js/emailvalidation.js"></script>
+  
+    </div>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+      <script src="app.js"></script>
   </body>
-</html>
+  </html>
 
+
+  

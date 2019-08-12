@@ -182,14 +182,4 @@
 		  width: 49%;
 	  }
   }
-	.first_container {
-    padding: 3px;
-    width: 150px;
-    font-style: italic;
-    font-weight: bold;
-    color: #a77;}
 
-
-#name_error_msg{
-    margin: 5px;
-    color: red;}
