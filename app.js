@@ -19,6 +19,7 @@
  const $bitcoin = $('fieldset:last div:last');
  const $paypal = $('fieldset:last div:last').prev();
  const $jobSelect = $('#title option');
+ const $title = $('#title');
  const $ccNum = $('#cc-num');
  const $zip = $('#zip');
  const $cvv = $('#cvv');
@@ -27,6 +28,8 @@
  const $messageLastName = 'Please enter your last name.';
  const $validate = $('#validate');
  const $validateEmail =$('#validate-email');
+ const $cc = $('#credit-card');
+ const $error = $('#error');
  var activitycounter;
  var submitcounter;
 
@@ -143,6 +146,81 @@ $("#payment").change(function(){
 });
 
 
+$('#firstName').on('focusout', function() {
+  if ($('#firstName').val() === '') {
+    $('#firstName').css('border-color', '#ff0000');
+    $('#firstName').addClass('error'); 
+  } else {
+    $('#firstName').css('border-color', '#00ff0c');
+    $('#firstName').removeClass('error');
+  }
+});
+$('#lastName').on('focusout', function() {
+  if ($('#lastName').val() === '') {
+    $('#lastName').css('border-color', '#ff0000');
+    $('#lastName').addClass('error'); 
+  } else {
+    $('#lastName').css('border-color', '#00ff0c');
+    $('#lastName').removeClass('error');
+  }
+  });
+
+  $("#email").keyup(function(){
+    var email = $("#email").val();
+    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    if (!filter.test(email)) {
+      alert('Please provide a valid email address');
+      $("#error_email").text(email+" is not a valid email");
+      email.focus;
+      return false;
+   } else {
+       $("#error_email").text("");
+   }
+});
+  
+  $('#cc-num').on('focusout', function() {
+    if ($('#cc-num').val() === '') {
+      $('#cc-num').css('border-color', '#ff0000');
+      $('#cc-num').addClass('error'); 
+    } else {
+      $('#cc-num').css('border-color', '#00ff0c');
+      $('#cc-num').removeClass('error');
+    }
+});
+
+$('#zip').on('focusout', function() {
+  if ($('#zip').val() === '') {
+    $('#zip').css('border-color', '#ff0000');
+    $('#zip').addClass('error'); 
+  } else {
+    $('#zip').css('border-color', '#00ff0c');
+    $('#zip').removeClass('error');
+  }
+});
+
+$('#cvv').on('focusout', function() {
+  if ($('#cvv').val() === '') {
+    $('#cvv').css('border-color', '#ff0000');
+    $('#cvv').addClass('error'); 
+  } else {
+    $('#cvv').css('border-color', '#00ff0c');
+    $('#cvv').removeClass('error');
+  }
+});
+
+
+
+
+$('button').on('click', function(){
+  if ($('p:contains("Please check if text boxes are filled in, then click Register again.")').length>0 || $('p:contains("Please check at least one checkbox and click Register again.")').length>0) {
+    $('p:contains("Please check if text boxes are filled in, then click Register again.")').hide();
+  }
+  if ($('#firstName').hasClass('error') || $('#lastName').hasClass('error') || $('#email').hasClass('error') || $('#creditCard').hasClass('error') || $('#activities').hasClass('error')) {
+  $('button').after('<p>Please check if your information is filled in correctly, then click Register again.</p>');
+    event.preventDefault(); 
+  }
+
+
 
 //**Form validation,an error messages should show and don't let the user submit//
 $("button[type='submit']").on("click", function(e){
@@ -158,14 +236,6 @@ $("button[type='submit']").on("click", function(e){
      submitcounter = 0;
      activitycounter = 0;
 
-
-
-    //Name field can't be empty//
-    if ($("#name").val() === "") {
-      submitcounter += 1;
-      $("#name").before("<p id='nameerror' class='errortext'>Please enter your name.</p>");
-      $("#name").focus();
-    }
 
     //If Other field is selected, ensure job title is entered//
     if ( ($("#title").val() == "other") && ($("#other-title").val() === "") ) {
@@ -197,16 +267,6 @@ $("button[type='submit']").on("click", function(e){
       }
 
 
-    //Email field must be a validly formatted e-mail address//
-      var emailinput = $("#mail").val();
-      //var emailformula = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-      var emailformula = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-      if (!emailformula.test(emailinput)) {
-        submitcounter += 1;
-        $("#mail").before("<p id='mailerror' class='errortext'>Please enter a valid email.</p>");
-      }
-
     //Validate credit card number//
       $("#cc-num").validateCreditCard(function(result){
           $("#ccerror").remove();
@@ -233,4 +293,4 @@ $("button[type='submit']").on("click", function(e){
 
 });
 });
-
+});
