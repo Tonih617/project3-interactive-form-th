@@ -211,6 +211,10 @@ $('#cvv').on('focusout', function() {
 
 
 
+
+
+
+
 $('button').on('click', function(){
   if ($('p:contains("Please check if text boxes are filled in, then click Register again.")').length>0 || $('p:contains("Please check at least one checkbox and click Register again.")').length>0) {
     $('p:contains("Please check if text boxes are filled in, then click Register again.")').hide();
