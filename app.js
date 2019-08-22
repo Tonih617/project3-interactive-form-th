@@ -145,7 +145,7 @@ $("#payment").change(function(){
     $(this).val() === "bitcoin" ? $("#bitcoin").show() : $("#bitcoin").hide();
 });
 
-
+//add focus to first name and  
 $('#firstName').on('focusout', function() {
   if ($('#firstName').val() === '') {
     $('#firstName').css('border-color', '#ff0000');
@@ -209,25 +209,16 @@ $('#cvv').on('focusout', function() {
 });
 
 
-
-
-
-
-
-
-$('button').on('click', function(){
-  if ($('p:contains("Please check if text boxes are filled in, then click Register again.")').length>0 || $('p:contains("Please check at least one checkbox and click Register again.")').length>0) {
-    $('p:contains("Please check if text boxes are filled in, then click Register again.")').hide();
-  }
-  if ($('#firstName').hasClass('error') || $('#lastName').hasClass('error') || $('#email').hasClass('error') || $('#creditCard').hasClass('error') || $('#activities').hasClass('error')) {
-  $('button').after('<p>Please check if your information is filled in correctly, then click Register again.</p>');
-    event.preventDefault(); 
-  }
-
-
-
 //**Form validation,an error messages should show and don't let the user submit//
 $("button[type='submit']").on("click", function(e){
+    if ($('p:contains("Please check if text boxes are filled in, then click Register again.")').length>0 || $('p:contains("Please check at least one checkbox and click Register again.")').length>0) {
+      $('p:contains("Please check if text boxes are filled in, then click Register again.")').hide();
+    }
+    var hasError=$('#firstName').hasClass('error') || $('#lastName').hasClass('error') || $('#email').hasClass('error') || $('#creditCard').hasClass('error') || $('#activities').hasClass('error');
+    if (hasError) {
+      $('button').after('<p>Please check if your information is filled in correctly, then click Register again.</p>');
+      event.preventDefault(); 
+    }
     //clear any existing error messages//
     $("#nameerror").remove();
     $("#titleerror").remove();
@@ -246,7 +237,9 @@ $("button[type='submit']").on("click", function(e){
       submitcounter += 1;
       $("#other-title").after("<p id='titleerror' class='errortext'>Please enter your job role.</p>");
     }
-
+    if ($('#firstName').val()==''){
+      //alert('no first name');
+    }
     //At least one activity must be checked from the list under "Register for Actitivities."//
 
       $(".activities input").each(function(){
@@ -257,44 +250,31 @@ $("button[type='submit']").on("click", function(e){
       });
 
       if (activitycounter === 0){
+        console.log("Activities section is unchecked");
         submitcounter += 1;
-        $(".activities").after("<p id='activityerror' class='errortext'>Please select an activity.</p>");
+        $("#activities").after("<p id='activityerror' class='errortext'>Please select an activity.</p>");
       }
 
-
-    
-    // If "Credit card" is the selected payment option, make sure the user adds correct input information//
-      if ($("#payment").val() == "credit card" && ($("#cc-num").val() === "" || $("#zip").val() === "" || ("#cvv").val() === "") ) {
-          console.log("Credit card fields are blank.");
-          submitcounter += 1;
-          $("#payment").after("<p id='paydetailserror' class='errortext'>Please complete your payment details.</p>");
+      
+   //If credit card is les than 16 digits, form should not submit and error will read (please enter a vaild card number//
+      var cc = $('#cc-num').val()== "credit card" && ($("#cc-num").val() === "" || $("#zip").val() === "" || ("#cvv").val() === ""); {
+      console.log("Credit card fields are blank.");
+      if (cc.length !==16){
+        console.log('inValid');
+        $("#payment").after("<p id='ccerror' class='errortext'>Please enter a valid card number.</p>");
+        
       }
-
-
-    //Validate credit card number//
-      $("#cc-num").validateCreditCard(function(result){
-          $("#ccerror").remove();
-          console.log(result.valid);
-          if ((result.valid === false) && ($("#cc-num").val() !== "")) {
-            submitcounter += 1;
-            $("#payment").after("<p id='ccerror' class='errortext'>Please enter a valid card number.</p>");
-            // Clear payment details error//
-            $("#paydetailserror").remove();
-          } else {
-            console.log("This is a valid credit card number");
-          }
-      });
 
   // check if the form can be submitted//
-  if (submitcounter > 0) {
+     if (submitcounter > 0) {
     e.preventDefault();
     console.log("Submit prevented");
     console.log(submitcounter);
-  } else {
+    } else {
     console.log("Registration accepted");//alert for user//
     alert("Registration accepted");
   }
 
-});
+};
 });
 });
