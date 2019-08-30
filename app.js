@@ -36,8 +36,8 @@
 
 //selecting the "name" element and calling focus to it//
 $( document ).ready(function() {
-  $( "name" ).focus();
-   
+  $( "#firstName" ).focus();
+
 
 //*JOB-ROLE SECTION*//
 
@@ -54,26 +54,27 @@ $('#title').change((elem) => {
 
 //If Other field is selected, ensure job title is entered//
 // if ( ($("#title").val() == "other") && ($("#other-title").val() === "") ) {
-  $("#other-title").after("<p id='titleerror' class='errortext'>Please enter your job role.</p>");
-  $("#titleerror").hide();
-  $('#other-title').on('focusout', function() {
-    if ($('#other-title').val() === '') {
-      $("#titleerror").show();
-      $('#other-title').css('border-color', '#ff0000');
-      $('#other-title').addClass('error'); 
-    } else {
-      $('#other-title').css('border-color', '#00ff0c');
-      $('#other-title').removeClass('error');
-      $("#titleerror").hide();
-    }
+//   $("#other-title").after("<p id='titleerror' class='errortext'>Please enter your job role.</p>");
+//   $("#titleerror").hide();
+//   $('#other-title').on('focusout', function() {
+//     if ($('#other-title').val() === '') {
+//       $("#titleerror").show();
+//       $('#other-title').css('border-color', '#ff0000');
+//       $('#other-title').addClass('error'); 
+//     } else {
+//       $('#other-title').css('border-color', '#00ff0c');
+//       $('#other-title').removeClass('error');
+//       $("#titleerror").hide();
+//     }
 
   
-});
+// });
 //}
 
 // //*T-SHIRT SECTION*//
 //hide color-option when nothing is selected//
-$("#colors-js-puns").hide(); 
+$("#colors-js-puns").hide();
+$("#design option").eq(0).hide();  
 $("#design").change( () => {
 $("#color option").hide(); 
 
@@ -148,12 +149,15 @@ function totalPrice(total) {
     $("#totalDiv").remove();
   }
 }
+
 const ccErrorSpan = $('<div>');
 $('#exp-month').prev().before(ccErrorSpan);
 $("option[value='select_method']").remove();
+
 //hide payment information for the other two options//
 $("#paypal").hide();
 $("#bitcoin").hide();
+
 //display payment sections based on chosen payment option//
 $("#payment").change(function(){
     //clear any existing error messages//
@@ -167,37 +171,49 @@ $("#payment").change(function(){
 //add focus to first name and last name, an error should be a red border if no input and green when input is correct//  
 $("#firstName").after("<p id='firstNameerror' class='errortext'>Please enter your first name.</p>")
 $("#firstNameerror").hide();
-$('#firstName').on('focusout', function() {
-  if ($('#firstName').val() === '') {
-    $("#firstNameerror").show();
-    $('#firstName').css('border-color', '#ff0000');
-    $('#firstName').addClass('error'); 
-  } else {
-    $('#firstName').css('border-color', '#00ff0c');
-    $('#firstName').removeClass('error');
-    $("#firstNameerror").hide();
-  }
 
+function isFirstNameValid() {
+    if ($('#firstName').val() === '') {
+      $("#firstNameerror").show();
+      $('#firstName').css('border-color', '#ff0000');
+      $('#firstName').addClass('error');
+      return false;  
+    } else {
+      $('#firstName').css('border-color', '#00ff0c');
+      $('#firstName').removeClass('error');
+      $("#firstNameerror").hide();
+      return true;
+    }
+}
+
+$('#firstName').on('focusout', function() {
+  isFirstNameValid(); 
 });
 
 
 $("#lastName").after("<p id='lastNameerror' class='errortext'>Please enter your last name.</p>");
 $("#lastNameerror").hide();
+
+function isLastNameValid() {
+      if ($('#lastName').val() === '') {
+        $("#lastNameerror").show();
+        $('#lastName').css('border-color', '#ff0000');
+        $('#lastName').addClass('error');
+        return false;  
+      } else {
+        $('#lastName').css('border-color', '#00ff0c');
+        $('#lastName').removeClass('error');
+        $("#lastNameerror").hide();
+        return true; 
+      }
+}
+
 $('#lastName').on('focusout', function() {
-  if ($('#lastName').val() === '') {
-    $("#lastNameerror").show();
-    $('#lastName').css('border-color', '#ff0000');
-    $('#lastName').addClass('error'); 
-  } else {
-    $('#lastName').css('border-color', '#00ff0c');
-    $('#lastName').removeClass('error');
-    $("#lastNameerror").hide();
-  }
-  
-  });
+  isLastNameValid(); 
+});
 
   //validating email,if email is invalid an error should show an alert to the user//
-  $("#email").on('focusout',function() {
+function isEmailValid() {
     var email = $("#email").val();
     var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (!filter.test(email)) {
@@ -207,65 +223,101 @@ $('#lastName').on('focusout', function() {
       return false;
    } else {
        $("#error_email").text("");
-       
+       return true; 
    }
-});
+}
+
+$("#email").on('focusout',function() {
+  isEmailValid(); 
+}); 
+
+function isActivitiesValid() {
+  if ($(".activities input:checkbox:checked").length === 0) {
+    alert('Please choose an activity');
+    return false; 
+  } else {
+    return true; 
+  }
+}
   //validating Credit Card Number, if no input then credit card section's border will be red and then green once correct info is added//
  // $("#cc-num").after("<p id='cc-numerror' class='errortext'>Please enter your credit card information.</p>"); 
   //$("#cc-numerror").hide();
-  $('#cc-num').on('focusout', function() {
-   // $("#cc-numerror").show();
-    if ($('#cc-num').val() === '') {
+
+function isCreditCardValid () {
+   let ccNum = $("#cc-num").val(); 
+   let ccNumWithoutSpaces = ccNum.replace(/-|\s/g,"")
+   let ccRegex = /^[0\d][0-9]{12,15}$/
+
+  if ($('#payment option[value = "credit card"]').prop('selected')) {
+    if ($('#cc-num').val() === '' || ccRegex.test(ccNumWithoutSpaces) === false) {
       $('#cc-num').css('border-color', '#ff0000');
       $('#cc-num').addClass('error');
       ccErrorSpan.text('Please enter your credit card information.');
+      return false; 
     } else {
       $('#cc-num').css('border-color', '#00ff0c');
       $('#cc-num').removeClass('error');
       ccErrorSpan.hide();
+      return true; 
     }
-});
+  }
+}
+
+$('#cc-num').on('focusout', function() {
+  isCreditCardValid(); 
+}); 
 
 //zip validations, if no zip code is entered a red border will show and form will not submit until the correct zip format is added//
 // $("#zip").after("<p id='ziperror' class='errortext'>Please enter your zip code.</p>");
-// $("#ziperror").hide(); 
-$('#zip').on('focusout', function() {
-  if ($('#zip').val() === '') {
-    //$("#ziperror").show();
-    $('#zip').css('border-color', '#ff0000');
-    $('#zip').addClass('error');
-    ccErrorSpan.text('Please enter your zip code.');
-  } else {
-    $('#zip').css('border-color', '#00ff0c');
-    $('#zip').removeClass('error');
-    $("#ziperror").hide();
-    ccErrorSpan.hide();
+// $("#ziperror").hide();
+
+function isZipValid() {
+    let zip = $('#zip').val()
+    let zipRegex = /^[0\d][0-9]{4}$/
+
+  if ($('#payment option[value = "credit card"]').prop('selected')) {
+    if ($('#zip').val() === '' || zipRegex.test(zip) === false) {
+      //$("#ziperror").show();
+      $('#zip').css('border-color', '#ff0000');
+      $('#zip').addClass('error');
+      ccErrorSpan.text('Please enter your zip code.');
+      return false; 
+    } else {
+      $('#zip').css('border-color', '#00ff0c');
+      $('#zip').removeClass('error');
+      $("#ziperror").hide();
+      ccErrorSpan.hide();
+      return true; 
+    }
   }
-});
+}
+
+$('#zip').on('focusout', function() {
+  isZipValid(); 
+}); 
+
+function isCvvValid() {
+    let cvv = $('#cvv').val()
+    let cvvRegex = /^[0\d][0-9]{2}$/
+
+ if ($('#payment option[value = "credit card"]').prop('selected')) {
+    if ($('#cvv').val() === '' || cvvRegex.test(cvv) === false) {
+      $('#cvv').css('border-color', '#ff0000');
+      $('#cvv').addClass('error'); 
+      ccErrorSpan.text('Please enter your cvv');
+      return false; 
+    } else {
+      $('#cvv').css('border-color', '#00ff0c');
+      $('#cvv').removeClass('error');
+      ccErrorSpan.hide();
+      return true; 
+    }
+  }
+}
 
 $('#cvv').on('focusout', function() {
-  if ($('#cvv').val() === '') {
-    $('#cvv').css('border-color', '#ff0000');
-    $('#cvv').addClass('error'); 
-    ccErrorSpan.text('Please enter your cvv');
-  } else {
-    $('#cvv').css('border-color', '#00ff0c');
-    $('#cvv').removeClass('error');
-    ccErrorSpan.hide();
-  }
-  
-
-  //If credit card is les than 16 digits, form should not submit and error will read (please enter a vaild card number//
-  //$("#payment").after("<p id='ccerror' class='errortext'>Please enter a valid card number.</p>");
-  var cc = $('#cc-num').val()== "credit card" && ($("#cc-num").val() === "" || $("#zip").val() === "" || ("#cvv").val() === ""); {
-    console.log("Credit card fields are blank.");
-    if (cc.length !==16){
-      console.log('inValid');
-      
-      
-    }
-};
-});
+  isCvvValid(); 
+}); 
 
 
 // if ($('#firstName').val()==''){
@@ -273,56 +325,72 @@ $('#cvv').on('focusout', function() {
 // }
 
 //**Form validation,an error messages should show and don't let the user submit//
-$("button[type='submit']").on("click", function(e){
-    if ($('p:contains("Please check if text boxes are filled in, then click Register again.")').length>0 || $('p:contains("Please check at least one checkbox and click Register again.")').length>0) {
-      $('p:contains("Please check if text boxes are filled in, then click Register again.")').hide();
-    }
-    var hasError=$('#firstName').hasClass('error') || $('#lastName').hasClass('error') || $('#mail').hasClass('error') || $('#creditCard').hasClass('error') || $('#activities').hasClass('error');
-    if (hasError) {
-      $('button').after('<p>Please check if your information is filled in correctly, then click Register again.</p>');
-      event.preventDefault(); 
-    }
-    //clear any existing error messages//
-    //$("#firstNameerror").remove();
-    //$("#lastNameerror").remove();
-    // $("#titleerror").remove();
-    // $("#activityerror").remove();
-    // $("#paydetailserror").remove();
-    // $("#ccserror").remove();
-    // $("#mailerror").remove();
+$("form").on("submit", function(e){
 
-    // using variables to track problems with input//
-     submitcounter = 0;
-     activitycounter = 0;
+if (isFirstNameValid() === false || isLastNameValid() === false || isEmailValid() === false || isCreditCardValid() === false || isZipValid() === false || isCvvValid() === false || isActivitiesValid() === false) {
+  e.preventDefault(); 
+  isFirstNameValid(); 
+  isLastNameValid();
+  isEmailValid(); 
+  isActivitiesValid(); 
+  isCreditCardValid(); 
+  isZipValid();
+  isCvvValid(); 
+} else {
+  console.log("Registration accepted");//alert for user//
+  alert("Registration accepted");
+}
 
 
-    //At least one activity must be checked from the list under "Register for Actitivities."//
+  //   if ($('p:contains("Please check if text boxes are filled in, then click Register again.")').length>0 || $('p:contains("Please check at least one checkbox and click Register again.")').length>0) {
+  //     $('p:contains("Please check if text boxes are filled in, then click Register again.")').hide();
+  //   }
+  //   var hasError=$('#firstName').hasClass('error') || $('#lastName').hasClass('error') || $('#mail').hasClass('error') || $('#creditCard').hasClass('error') || $('#activities').hasClass('error');
+  //   if (hasError) {
+  //     $('button').after('<p>Please check if your information is filled in correctly, then click Register again.</p>');
+  //     event.preventDefault(); 
+  //   }
+  //   //clear any existing error messages//
+  //   //$("#firstNameerror").remove();
+  //   //$("#lastNameerror").remove();
+  //   // $("#titleerror").remove();
+  //   // $("#activityerror").remove();
+  //   // $("#paydetailserror").remove();
+  //   // $("#ccserror").remove();
+  //   // $("#mailerror").remove();
 
-      $(".activities input").each(function(){
-        if ($(this).is(":checked")) {
-          activitycounter += 1;
-        }
-        return activitycounter;
-      });
+  //   // using variables to track problems with input//
+  //    submitcounter = 0;
+  //    activitycounter = 0;
 
-      if (activitycounter === 0){
-        console.log("Activities section is unchecked");
-        submitcounter += 1;
-        $("#activities").after("<p id='activityerror' class='errortext'>Please select an activity.</p>");
-      }
+
+  //   //At least one activity must be checked from the list under "Register for Actitivities."//
+
+  //     $(".activities input").each(function(){
+  //       if ($(this).is(":checked")) {
+  //         activitycounter += 1;
+  //       }
+  //       return activitycounter;
+  //     });
+
+  //     if (activitycounter === 0){
+  //       console.log("Activities section is unchecked");
+  //       submitcounter += 1;
+  //       $("#activities").after("<p id='activityerror' class='errortext'>Please select an activity.</p>");
+  //     }
 
       
    
 
-  // check if the form can be submitted//
-     if (submitcounter > 0) {
-    e.preventDefault();
-    console.log("Submit prevented");
-    console.log(submitcounter);
-    } else {
-    console.log("Registration accepted");//alert for user//
-    alert("Registration accepted");
-  }
+  // // check if the form can be submitted//
+  //    if (submitcounter > 0) {
+  //   e.preventDefault();
+  //   console.log("Submit prevented");
+  //   console.log(submitcounter);
+  //   } else {
+  //   console.log("Registration accepted");//alert for user//
+  //   alert("Registration accepted");
+  // }
 
  
  });
